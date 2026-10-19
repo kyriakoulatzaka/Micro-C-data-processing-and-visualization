@@ -12,7 +12,7 @@ The input is a binned Micro-C contact matrix, not a raw paired-end sequencing da
 
 ## Analysis previously performed using real Micro-C data
 
-The author previously carried out a **real-data exploratory Micro-C analysis** for early *Drosophila* embryogenesis (GSE265818), as documented in a laboratory presentation dated **19 February 2026**:
+The author previously carried out a **real-data exploratory Micro-C analysis** for early *Drosophila* embryogenesis (GSE265818), as documented in a laboratory presentation dated **19 February 2026**. This also included inspection of normalization weights and missing-bin patterns in the merged nc1–8 and nc14 matrices:
 
 - Selected 400-bp resolution contact matrices and merged same-stage replicates to generate separate `nc1-8_merged_400bp.cool` and `nc14_merged_400bp.cool` outputs.
 - Generated and inspected gene-centered chromatin contact heatmaps, including **toy, ac, ems, hunchback (hb), odd, snail, and charybdi**; compared nc1–8 with nc14 to investigate local 3D chromatin organization across developmental stages.
@@ -80,6 +80,25 @@ python scripts/inspect_cool.py /path/to/nc1-8_merged_400bp.cool --expected-resol
 ```
 
 This reports the bin size, number of pixels and whether the file already contains `bins/weight` values. **The conversion uses raw `count` values, not the existing balanced weights.** Normalization vectors recalculated by Juicer are not equivalent to copying Cooler weights.
+
+## Additional QC — Balancing weights and primary chromosomes
+
+The original project work also included **inspection of balancing weights on nc1–8 and nc14 merged matrices** and assessment of how NaN weights affect balanced contact maps. The author reported the following **nc1–8** measurements: **61,225 NaNs out of 360,163 bins (17.0%)**, with a successful Cooler `balance=True` read. This is real-data analysis, not synthetic input.
+
+Use the newly documented, memory-efficient QC script:
+
+```bash
+python scripts/qc_and_subset.py inspect /path/to/nc1-8_merged_400bp.cool --window-bins 500
+python scripts/qc_and_subset.py inspect /path/to/nc14_merged_400bp.cool --window-bins 500
+```
+
+To create a new file containing only 2L, 2R, 3L, 3R, X and 4:
+
+```bash
+python scripts/qc_and_subset.py subset /path/to/nc1-8_merged_400bp.cool /path/to/nc1-8_merged_400bp_mainchroms_corrected.cool
+```
+
+**Critical correction:** A prior exploratory notebook filtered Cooler pixels after excluding contigs without updating `bin1_id` and `bin2_id`. Such a subset cannot be assumed valid. The revised script **reindexes both bin IDs**, streams pixels instead of loading all contacts into memory, and excludes existing balancing weights from the new file. The merged source data are unchanged. For the reported metrics, interpretation, and limitations, see [Balancing-weight QC and chromosome subsetting](docs/qc_weights_and_mainchroms.md).
 
 ## Stage 3 — Convert merged `.cool` to `.hic`
 
