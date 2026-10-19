@@ -122,6 +122,10 @@ JAVA_HEAP=20g SORT_MEMORY=2G TMP_BASE=/path/to/large/temporary/disk \
 
 The workflow streams Cooler pixels to avoid writing a redundant uncompressed dump, but sorting still requires potentially substantial temporary disk space. It deletes its temporary folder after completion.
 
+## Empirical ems comparison: nc1–8 vs nc14
+
+The author's previous real-data analysis includes paired **ems** contact maps for nc1–8 and nc14 (400-bp bin resolution). See [figure provenance and window metadata](figures/ems/README.md). The four original PNGs are being prepared for upload to the gallery; their exact genomic windows must be verified before claiming that differently named files cover precisely matched intervals.
+
 ## Stage 4 — Plot locus-specific Micro-C heatmaps
 
 This optional stage plots a square contact matrix for one genomic interval directly from a **merged** `.cool` or original `.mcool` resolution group. **It does not need a `.hic` file.** The initial example from the project author's original script targeted the **ems** locus at nc14 (3R:13778677–14027796, dm6), which is distinct from the **nc1–8** merge example described above. To reproduce the ems plot you need the separate `nc14_merged_400bp.cool` file; it is *not* provided in this repository.
