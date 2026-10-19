@@ -1,3 +1,11 @@
+## v4 — QC, balancing weights, and corrected chromosome subsetting
+
+- Documented the author's real-data inspection of nc1–8 and nc14 balancing weights.
+- Recorded nc1–8 measurements: 61,225 NaN weights in 360,163 bins (17.0%).
+- Added `scripts/qc_and_subset.py` for per-chromosome weight summaries and safe, streaming subsetting with bin-ID remapping.
+- Added `tests/test_qc_and_subset.py` and `docs/qc_weights_and_mainchroms.md`.
+- Distinguished previous real-data analysis from tests of the reorganized code.
+
 # Changelog
 
 ## v3 — Micro-C regional heatmaps
