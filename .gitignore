@@ -1,0 +1,15 @@
+# Large sequencing and 3D-genome datasets should not be committed
+*.cool
+*.mcool
+*.hic
+*.bam
+*.fastq
+*.fastq.gz
+*.pairs.gz
+*.contacts.tsv
+*.shortWithScore*.txt.gz
+!examples/toy.contacts.tsv
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store

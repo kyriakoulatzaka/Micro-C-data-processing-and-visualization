@@ -1,0 +1,10 @@
+name: microc2hic
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - cooler=0.10.4
+  - h5py
+  - numpy
+  - matplotlib

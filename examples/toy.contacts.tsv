@@ -1,0 +1,4 @@
+chrom1	start1	end1	chrom2	start2	end2	count
+3R	0	400	3R	400	800	5
+3R	400	800	3R	1200	1600	3
+2L	0	400	3R	0	400	2
